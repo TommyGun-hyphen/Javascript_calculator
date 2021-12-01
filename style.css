@@ -1,0 +1,32 @@
+body{
+    background-color: #119977;
+    font-family: sans-serif;
+}
+
+#calculator p, h2{
+    display: inline;
+}
+#calculator{
+    background-color: white;
+    width: fit-content;
+    border-radius: 10px;
+}
+#result{
+    height: 50px;
+    padding: 10px;
+}
+#buttons{
+    background-color: #999;
+    padding: 10px;
+    border-radius: 10px;
+}
+#buttons button{
+    display: inline-block;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: none;
+    box-shadow: black 0px 0px 10px -5px;
+}

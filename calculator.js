@@ -38,12 +38,17 @@ function updateResult(res, op) {
     document.getElementById('secondary').innerHTML = op||"";
 }
 function reset(){
-    number = 0;
-    operations = "";
+    operations = number;
     factorDir = 1;
     factor = 10;
 }
-
+function CE(){
+    number = 0;
+    operations = number;
+    factorDir = 1;
+    factor = 10;
+    updateResult('','');
+}
 
 // My Eval
 

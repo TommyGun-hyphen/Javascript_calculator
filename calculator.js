@@ -44,7 +44,7 @@ function reset(){
 }
 function CE(){
     number = 0;
-    operations = number;
+    operations = [];
     factorDir = 1;
     factor = 10;
     updateResult('','');
@@ -69,7 +69,7 @@ function removePar(arr){ //remouve les parentheses. remplace le centenu par un a
     }
 
     let par = removePar(arr.slice(openIndex+1, closeIndex));
-    arr.splice(openIndex,closeIndex, par)
+    arr.splice(openIndex,closeIndex-openIndex+1, par)
     arr = arr.filter((e)=>e!='');
     arr = arr.map((e)=>{
         if(e.length == 1)return e[0];
@@ -118,8 +118,8 @@ function myEval(ops){
             let res = Math.sqrt(ops[i+1]);
             ops.splice(i,2, res);
             // i--;
-
         }
+        
     }
     //mult and div
     for(let i = 0; i < ops.length;i++){
@@ -167,7 +167,10 @@ function myEval(ops){
             i--;
         }
     }
+    if(ops.length == 1 && Array.isArray(ops[0])){
+        ops = myEval(ops[0]);
+    }
     return ops;
 }
 
-console.log(myEval(removePar('Math.sqrt ( 4 ) * 2'.split(' '))));
+console.log((removePar('( 2 + 2 )'.split(' '))));

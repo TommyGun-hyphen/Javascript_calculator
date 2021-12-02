@@ -53,23 +53,30 @@ function CE(){
 // My Eval
 
 function removePar(arr){ //remouve les parentheses. remplace le centenu par un array
-    let openC = 1;
+    let openC = 0;
     let openIndex = arr.indexOf('(');
     let closeIndex;
-    if(arr.includes('(')){
-        for(let i = openIndex+1; i < arr.length; i++){
+    let nbOpenC = arr.reduce((prev,curr)=>{
+        if(curr == '(')return prev+1;
+        return prev;
+    }, 0);
+
+    for(let o = 0; o < nbOpenC; o++){
+        for(let i = openIndex; i < arr.length; i++){
             if(arr[i] == ')' && openC == 1){
                 closeIndex = i;
+                let par = removePar(arr.slice(openIndex+1, closeIndex));
+                arr.splice(openIndex,closeIndex-openIndex+1, par)
                 break;
             }else if(arr[i] == ')') openC--;
             else if(arr[i] == '(')openC++;
         }
-    }else{
-        return arr;
+        openC = 0;
+        openIndex = arr.indexOf('(');
+        closeIndex;
     }
-
-    let par = removePar(arr.slice(openIndex+1, closeIndex));
-    arr.splice(openIndex,closeIndex-openIndex+1, par)
+    
+    
     arr = arr.filter((e)=>e!='');
     arr = arr.map((e)=>{
         if(e.length == 1)return e[0];
@@ -173,4 +180,4 @@ function myEval(ops){
     return ops;
 }
 
-console.log((removePar('( 2 + 2 )'.split(' '))));
+console.log((removePar('( 2 + 2 ) + ( 2 + 2 )'.split(' '))));

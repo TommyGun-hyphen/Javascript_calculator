@@ -154,24 +154,37 @@ function myEval(ops){
     //addition and substraction
     for(let i = 0; i < ops.length;i++){
         if(ops[i] == '+'){
-            if(ops[i+1] === undefined || ops[i-1] === undefined){
+            if(ops[i+1] === undefined){
                 return false;
+            }else if(ops[i-1] === undefined){
+                if(Array.isArray(ops[i+1])) ops[i+1] = myEval(ops[i+1]);
+                let res = 1 * Number(ops[i+1]);
+                ops.splice(i,2, res);
+                i--;
+            }else{
+                if(Array.isArray(ops[i-1])) ops[i-1] = myEval(ops[i-1]);
+                if(Array.isArray(ops[i+1])) ops[i+1] = myEval(ops[i+1]);
+                let res = Number(ops[i-1]) + Number(ops[i+1]);
+                ops.splice(i-1,3, res);
+                i--;
             }
-            if(Array.isArray(ops[i-1])) ops[i-1] = myEval(ops[i-1]);
-            if(Array.isArray(ops[i+1])) ops[i+1] = myEval(ops[i+1]);
-            let res = Number(ops[i-1]) + Number(ops[i+1]);
-            ops.splice(i-1,3, res);
-            i--;
+            
         }
         if(ops[i] == '-'){
-            if(ops[i+1] === undefined || ops[i-1] === undefined){
+            if(ops[i+1] === undefined){
                 return false;
+            }else if(ops[i-1] === undefined){
+                if(Array.isArray(ops[i+1])) ops[i+1] = myEval(ops[i+1]);
+                let res = -1 * Number(ops[i+1]);
+                ops.splice(i,2, res);
+                i--;
+            }else{
+                if(Array.isArray(ops[i-1])) ops[i-1] = myEval(ops[i-1]);
+                if(Array.isArray(ops[i+1])) ops[i+1] = myEval(ops[i+1]);
+                let res = Number(ops[i-1]) - Number(ops[i+1]);
+                ops.splice(i-1,3, res);
+                i--;
             }
-            if(Array.isArray(ops[i-1])) ops[i-1] = myEval(ops[i-1]);
-            if(Array.isArray(ops[i+1])) ops[i+1] = myEval(ops[i+1]);
-            let res = Number(ops[i-1]) - Number(ops[i+1]);
-            ops.splice(i-1,3, res);
-            i--;
         }
     }
     if(ops.length == 1 && Array.isArray(ops[0])){
@@ -180,4 +193,4 @@ function myEval(ops){
     return ops;
 }
 
-console.log((removePar('( 2 + 2 ) + ( 2 + 2 )'.split(' '))));
+// console.log((removePar('( 2 + 2 ) + ( 2 + 2 )'.split(' '))));
